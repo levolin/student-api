@@ -11,6 +11,16 @@ let students = [
 // READ
 app.get('/students', (req, res) => res.json(students));
 
+app.get('/students/:id', (req, res) => {
+    const student = students.find(s => s.id === Number(req.params.id));
+
+    if (!student) {
+        return res.status(404).json({ message: 'Student not found' });
+    }
+
+    res.json(student);
+});
+
 // CREATE
 app.post('/students', (req, res) => {
     const student = { id: students.length + 1, ...req.body };
@@ -42,4 +52,10 @@ app.delete('/students/:id', (req, res) => {
     res.json({message:'Deleted successfully'});
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+if (require.main === module) {
+    app.listen(3000, () => {
+        console.log('Server running on port 3000');
+    });
+}
+
+module.exports = app;
