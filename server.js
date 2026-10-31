@@ -20,6 +20,9 @@ app.post('/students', (req, res) => {
 
 // UPDATE
 app.put('/students/:id', (req, res) => {
+    if (!req.body.name || !req.body.age || !req.body.department) {
+   	 return res.status(400).json({ message: 'All fields are required' });
+    }
     const id = Number(req.params.id);
     const index = students.findIndex(s => s.id === id);
 
