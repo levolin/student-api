@@ -16,5 +16,5 @@ jobs:
           node-version: 20
 
       - run: npm install
-      - run: npx jest --runInBand
+      - run: node ./node_modules/jest/bin/jest.js --runInBand
       - run: docker build -t devops-app .
